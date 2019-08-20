@@ -1,0 +1,2 @@
+# captcha-generator
+dotnet core 
