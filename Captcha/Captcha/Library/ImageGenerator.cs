@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
-namespace Captcha_Generator.Library
+namespace Captcha.Library
 {
     public class ImageGenerator
     {
@@ -66,8 +66,7 @@ namespace Captcha_Generator.Library
 
         private void ImageGenerator_events(object sender, List<int> e)
         {
-            Bitmap image = new Bitmap(200, 40);
-            string filename = string.Empty;
+            string filename = Option.Instance.SavePath;
             e.ForEach((value) =>
             {
                 filename += value.ToString();
@@ -75,11 +74,13 @@ namespace Captcha_Generator.Library
 
             filename += "-" + GetHashCode().ToString();
 
+
             var p = ChangeNum(e);
 
+            Drawing draw = new Drawing();
 
+            draw.Draw(filename);
 
-            image.Save(filename);
         }
 
         void pick(List<int> picked, int toPick)

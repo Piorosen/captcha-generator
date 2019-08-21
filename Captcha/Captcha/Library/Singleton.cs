@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Captcha_Generator.Library
+namespace Captcha.Library
 {
     public class Singleton<T> where T : class, new()
     {
