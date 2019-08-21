@@ -16,6 +16,8 @@ namespace Captcha
         public Form1()
         {
             InitializeComponent();
+
+            Option.Instance.LoadOption("");
         }
 
         private void Form1_Load(object sender, EventArgs e)
