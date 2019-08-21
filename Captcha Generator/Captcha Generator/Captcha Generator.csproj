@@ -6,4 +6,7 @@
     <RootNamespace>Captcha_Generator</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Library\" />
+  </ItemGroup>
 </Project>
