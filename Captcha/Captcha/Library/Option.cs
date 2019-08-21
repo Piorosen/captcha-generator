@@ -19,7 +19,9 @@ namespace Captcha_Generator.Library
 
         public bool RandomFont = false;
         public bool NumberAndChar = false;
-        
+        public string SavePath = Environment.CurrentDirectory;
+        public int Epoch = 4;
+        public readonly Random Random = new Random();
 
 
     }

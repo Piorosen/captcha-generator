@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace Captcha_Generator.Library
 {
@@ -18,14 +19,55 @@ namespace Captcha_Generator.Library
                 permutation.Add(i);
             }
 
+            Option.Instance.Epoch = epoch;
+            Option.Instance.SavePath = savePath;
+
             pick(permutation, size);
+        }
+
+        private string SelectNumber(int i)
+        {
+            string result = string.Empty;
+            var value = new List<string>
+            {
+                "영", "일", "이",
+                "삼", "사", "오",
+                "육", "칠", "팔",
+                "구"
+            };
+
+            if (Option.Instance.NumberAndChar)
+            {
+                if (Option.Instance.Random.Next(0, 2) == 1)
+                {
+                    result = i.ToString();
+                }else
+                {
+                    result = value[i];
+                }
+            }else
+            {
+                result = i.ToString();
+            }
+
+            return result;
         }
 
         private void ImageGenerator_events(object sender, List<int> e)
         {
+            Bitmap result = new Bitmap(200, 40);
+            string filename = string.Empty;
+            e.ForEach((value) =>
+            {
+                filename += value.ToString();
+            });
+
+            filename += "-" + GetHashCode().ToString();
 
 
 
+
+            result.Save(filename);
         }
 
         void pick(List<int> picked, int toPick)
