@@ -17,6 +17,10 @@ namespace Captcha_Generator.Library
             return false;
         }
 
+        public bool RandomFont = false;
+        public bool NumberAndChar = false;
+        
+
 
     }
 }
