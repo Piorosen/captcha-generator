@@ -28,7 +28,9 @@ namespace Captcha
         private void Button1_Click(object sender, EventArgs e)
         {
             ImageGenerator gen = new ImageGenerator();
-            gen.Start(@"C:\Users\Admin\Desktop\result", 4, 1);
+            gen.Start(@"C:\Users\Admin\Desktop\fol\my-char-4-6\train", 4, 6);
+            gen.Start(@"C:\Users\Admin\Desktop\fol\my-char-4-6\test", 4, 1);
+            MessageBox.Show("Complete");
         }
     }
 }

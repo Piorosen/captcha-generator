@@ -64,14 +64,26 @@ namespace Captcha.Library
             return result;
         }
 
+        private string RandomInt(int c)
+        {
+            string result = string.Empty;
+
+            for (int i = 0; i < c; i++)
+            {
+                result += (char)(Option.Instance.Random.Next(0, 10) + '0');
+            }
+
+            return result;
+        }
+
         private string HashName(int epoch)
         {
             string result = string.Empty;
             for (int i = 0; i < epoch - 1; i++)
             {
-                result += new Object().GetHashCode().ToString() + "-";
+                result += RandomInt(4) + "-";
             }
-            result += new Object().GetHashCode().ToString();
+            result += RandomInt(4);
 
             return result;
         }
@@ -86,11 +98,12 @@ namespace Captcha.Library
 
             for (int i = 0; i < Option.Instance.Epoch; i++)
             {
-                filename += "-" + HashName(4) + ".bmp";
-                filename = Path.Combine(Option.Instance.SavePath, filename);
+                string name = filename + "_" + HashName(4) + ".png";
+
+                name = Path.Combine(Option.Instance.SavePath, name);
 
                 var p = ChangeNum(e);
-                new Drawing().Draw(filename, p);
+                new Drawing().Draw(name, p);
             }
         }
 
