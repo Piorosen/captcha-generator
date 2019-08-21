@@ -25,37 +25,48 @@ namespace Captcha_Generator.Library
             pick(permutation, size);
         }
 
-        private string SelectNumber(int i)
+        private char SelectNumber(int i)
         {
-            string result = string.Empty;
-            var value = new List<string>
+            char result = '\0';
+            var value = new List<char>
             {
-                "영", "일", "이",
-                "삼", "사", "오",
-                "육", "칠", "팔",
-                "구"
+                '영', '일', '이',
+                '삼', '사', '오',
+                '육', '칠', '팔',
+                '구'
             };
 
             if (Option.Instance.NumberAndChar)
             {
                 if (Option.Instance.Random.Next(0, 2) == 1)
                 {
-                    result = i.ToString();
+                    result = (char)(i + '0');
                 }else
                 {
                     result = value[i];
                 }
             }else
             {
-                result = i.ToString();
+                result = (char)(i + '0');
             }
 
             return result;
         }
 
+        string ChangeNum(List<int> e)
+        {
+            string result = string.Empty;
+
+            foreach (var i in e)
+            {
+                result += SelectNumber(i);
+            }
+            return result;
+        }
+
         private void ImageGenerator_events(object sender, List<int> e)
         {
-            Bitmap result = new Bitmap(200, 40);
+            Bitmap image = new Bitmap(200, 40);
             string filename = string.Empty;
             e.ForEach((value) =>
             {
@@ -64,10 +75,11 @@ namespace Captcha_Generator.Library
 
             filename += "-" + GetHashCode().ToString();
 
+            var p = ChangeNum(e);
 
 
 
-            result.Save(filename);
+            image.Save(filename);
         }
 
         void pick(List<int> picked, int toPick)
