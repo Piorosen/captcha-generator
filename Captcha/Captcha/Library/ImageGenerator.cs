@@ -22,7 +22,7 @@ namespace Captcha.Library
             Option.Instance.Epoch = epoch;
             Option.Instance.SavePath = savePath;
 
-            pick(permutation, size);
+            Pick(permutation, size);
         }
 
         private char SelectNumber(int i)
@@ -83,31 +83,42 @@ namespace Captcha.Library
             {
                 filename += value.ToString();
             });
-            
-            filename += "-" + HashName(4) + ".bmp";
 
-            filename = Path.Combine(Option.Instance.SavePath, filename);
+            for (int i = 0; i < Option.Instance.Epoch; i++)
+            {
+                filename += "-" + HashName(4) + ".bmp";
+                filename = Path.Combine(Option.Instance.SavePath, filename);
 
-            var p = ChangeNum(e);
-
-            Drawing draw = new Drawing();
-
-            draw.Draw(filename, p);
-
+                var p = ChangeNum(e);
+                new Drawing().Draw(filename, p);
+            }
         }
 
-        void pick(List<int> data, int size)
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                List<int> a = new List<int>
-            {
-                3,6,1,2
 
-            };
-                events?.Invoke(this, a);
+        void Pick(List<int> origin, int size, List<int> value = null)
+        {
+            if (value == null)
+            {
+                value = new List<int>();
             }
             
+            int length = origin.Count;
+
+            if (size == 0)
+            {
+                events?.Invoke(this, value);
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                var tmp = origin[i];
+
+                value.Add(tmp);
+                origin.RemoveAt(i);
+                Pick(origin, size - 1, value);
+                origin.Insert(i, tmp);
+                value.RemoveAt(value.Count - 1);
+            }
         }
 
     }
