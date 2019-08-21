@@ -26,6 +26,7 @@ namespace Captcha.Library
         public readonly Random Random = new Random();
 
         public Size RangeFontSize = new Size(10, 20);
+
         public float FontSize
         {
             get
