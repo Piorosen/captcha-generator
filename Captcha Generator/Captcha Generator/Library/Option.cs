@@ -8,5 +8,15 @@ namespace Captcha_Generator.Library
 
 
         }
+
+        public bool LoadOption(string filename)
+        {
+
+
+
+            return false;
+        }
+
+
     }
 }
