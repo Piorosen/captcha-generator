@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Captcha.Library;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,6 +21,12 @@ namespace Captcha
         private void Form1_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            ImageGenerator gen = new ImageGenerator();
+            gen.Start(@"C:\Users\Admin\Desktop\result", 4, 1);
         }
     }
 }

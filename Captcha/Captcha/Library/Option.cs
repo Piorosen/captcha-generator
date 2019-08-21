@@ -17,8 +17,8 @@ namespace Captcha.Library
             return false;
         }
 
-        public bool RandomFont = false;
-        public bool NumberAndChar = false;
+        public bool RandomFont = true;
+        public bool NumberAndChar = true;
         public string SavePath = Environment.CurrentDirectory;
         public int Epoch = 4;
         public readonly Random Random = new Random();

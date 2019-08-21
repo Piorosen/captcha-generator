@@ -64,43 +64,50 @@ namespace Captcha.Library
             return result;
         }
 
+        private string HashName(int epoch)
+        {
+            string result = string.Empty;
+            for (int i = 0; i < epoch - 1; i++)
+            {
+                result += new Object().GetHashCode().ToString() + "-";
+            }
+            result += new Object().GetHashCode().ToString();
+
+            return result;
+        }
+
         private void ImageGenerator_events(object sender, List<int> e)
         {
-            string filename = Option.Instance.SavePath;
+            string filename = string.Empty;
             e.ForEach((value) =>
             {
                 filename += value.ToString();
             });
+            
+            filename += "-" + HashName(4) + ".bmp";
 
-            filename += "-" + GetHashCode().ToString();
-
+            filename = Path.Combine(Option.Instance.SavePath, filename);
 
             var p = ChangeNum(e);
 
             Drawing draw = new Drawing();
 
-            draw.Draw(filename);
+            draw.Draw(filename, p);
 
         }
 
-        void pick(List<int> picked, int toPick)
+        void pick(List<int> data, int size)
         {
-            int n = picked.Count;
-            if (toPick == 0)
+            for (int i = 0; i < 100; i++)
             {
-                events?.Invoke(this, picked);   
-            }
-
-            // 고를 수 있는 가장 작은 번호를 계산한다.
-            int smallest = picked.Count == 0 ? 1 : picked[picked.Count - 1] + 1;
-
-            // 이 단계에서 원소 하나를 고른다.
-            for (int next = smallest; next < n; ++next)
+                List<int> a = new List<int>
             {
-                picked.Add(next);
-                pick(picked, toPick - 1);
-                picked.RemoveAt(picked.Count - 1);
+                3,6,1,2
+
+            };
+                events?.Invoke(this, a);
             }
+            
         }
 
     }
