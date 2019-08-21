@@ -70,20 +70,30 @@ namespace Captcha.Library
 
             for (int i = 0; i < c; i++)
             {
-                result += (char)(Option.Instance.Random.Next(0, 10) + '0');
+                char num = (char)Option.Instance.Random.Next(0, 16);
+                if (num > 9)
+                {
+                    num -= (char)10;
+                    result += (char)(num + 'a');
+                }else
+                {
+                    result += (char)(num + '0');
+                }
+                
             }
 
             return result;
         }
 
-        private string HashName(int epoch)
+        private string HashName()
         {
             string result = string.Empty;
-            for (int i = 0; i < epoch - 1; i++)
-            {
-                result += RandomInt(4) + "-";
-            }
-            result += RandomInt(4);
+
+            result += RandomInt(8) + '-';
+            result += RandomInt(4) + '-';
+            result += RandomInt(4) + '-';
+            result += RandomInt(4) + '-';
+            result += RandomInt(12);
 
             return result;
         }
@@ -98,7 +108,7 @@ namespace Captcha.Library
 
             for (int i = 0; i < Option.Instance.Epoch; i++)
             {
-                string name = filename + "_" + HashName(4) + ".png";
+                string name = filename + "_" + HashName() + ".png";
 
                 name = Path.Combine(Option.Instance.SavePath, name);
 
